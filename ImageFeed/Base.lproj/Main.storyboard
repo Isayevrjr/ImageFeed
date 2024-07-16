@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AiH-gC-W7W">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NUo-et-LIS">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -96,13 +96,14 @@
                             <constraint firstAttribute="right" secondItem="cbf-Rx-PaV" secondAttribute="right" id="NHa-jO-eqB"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" image="tab_editorial_active" id="w8v-Eq-aYS"/>
                     <connections>
                         <outlet property="tableView" destination="cbf-Rx-PaV" id="OqI-F1-hhP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="46.564885496183201" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="-1106" y="-459"/>
         </scene>
         <!--Profile-->
         <scene sceneID="m1T-Cs-i7j">
@@ -169,6 +170,7 @@
                             <constraint firstItem="ciN-eq-m8X" firstAttribute="top" secondItem="0fi-eZ-noQ" secondAttribute="bottom" constant="8" id="z57-OO-b4w"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" image="tab_profile_active" id="lAT-x0-EDM"/>
                     <connections>
                         <outlet property="avatarImageView" destination="0fi-eZ-noQ" id="MIv-9s-3hk"/>
                         <outlet property="descriptionLabel" destination="4hb-Te-gfW" id="TQU-25-OUr"/>
@@ -179,7 +181,29 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Du9-Fd-2ED" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1080.1526717557251" y="-132.3943661971831"/>
+            <point key="canvasLocation" x="-1106" y="228"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="IFw-OP-9jf">
+            <objects>
+                <tabBarController id="NUo-et-LIS" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="t7G-5k-DDd">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <tabBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        </tabBarAppearance>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="WmF-1x-f8v"/>
+                        <segue destination="AiH-gC-W7W" kind="relationship" relationship="viewControllers" id="tcZ-Z1-Q1R"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DJ8-6s-nEo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1998" y="-205"/>
         </scene>
     </scenes>
     <resources>
@@ -187,5 +211,7 @@
         <image name="Avatar" width="70" height="70"/>
         <image name="Like_button_on" width="42" height="42"/>
         <image name="Logout_button" width="24" height="24"/>
+        <image name="tab_editorial_active" width="30" height="30"/>
+        <image name="tab_profile_active" width="30" height="30"/>
     </resources>
 </document>
