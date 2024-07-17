@@ -15,6 +15,7 @@
 		572951A52C36E4290063B5CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 572951A32C36E4290063B5CD /* LaunchScreen.storyboard */; };
 		579E1FDD2C3D3F1F00AED135 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579E1FDC2C3D3F1F00AED135 /* ImagesListCell.swift */; };
 		579E202C2C45535000AED135 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579E202B2C45535000AED135 /* ProfileViewController.swift */; };
+		579E202F2C479F1400AED135 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579E202E2C479F1400AED135 /* SingleImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		572951A62C36E4290063B5CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		579E1FDC2C3D3F1F00AED135 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		579E202B2C45535000AED135 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		579E202E2C479F1400AED135 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +65,8 @@
 				572951982C36E4280063B5CD /* AppDelegate.swift */,
 				5729519A2C36E4280063B5CD /* SceneDelegate.swift */,
 				579E1FDA2C3D3EDE00AED135 /* ImagesList */,
-				579E202B2C45535000AED135 /* ProfileViewController.swift */,
+				579E202D2C479EED00AED135 /* Profile */,
+				579E202E2C479F1400AED135 /* SingleImageViewController.swift */,
 				5729519E2C36E4280063B5CD /* Main.storyboard */,
 				572951A62C36E4290063B5CD /* Info.plist */,
 				572951A12C36E4290063B5CD /* Assets.xcassets */,
@@ -79,6 +82,14 @@
 				579E1FDC2C3D3F1F00AED135 /* ImagesListCell.swift */,
 			);
 			path = ImagesList;
+			sourceTree = "<group>";
+		};
+		579E202D2C479EED00AED135 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				579E202B2C45535000AED135 /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +167,7 @@
 				579E1FDD2C3D3F1F00AED135 /* ImagesListCell.swift in Sources */,
 				579E202C2C45535000AED135 /* ProfileViewController.swift in Sources */,
 				572951992C36E4280063B5CD /* AppDelegate.swift in Sources */,
+				579E202F2C479F1400AED135 /* SingleImageViewController.swift in Sources */,
 				5729519B2C36E4280063B5CD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
