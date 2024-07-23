@@ -5,12 +5,7 @@ final class ImagesListViewController: UIViewController {
     
     @IBOutlet private var tableView: UITableView!
     
-    
     private let photosName: [String] = Array(0..<20).map{ "\($0)" }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return.lightContent
-    }
     
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -43,6 +38,8 @@ final class ImagesListViewController: UIViewController {
     }
    
 }
+
+// MARK: - Extensions
 
 extension ImagesListViewController {
     func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {

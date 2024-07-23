@@ -8,13 +8,14 @@ class ProfileViewController: UIViewController {
     @IBOutlet private var descriptionLabel: UILabel!
     @IBOutlet private var logoutButton: UIButton!
     
-    @IBAction private func didTapLogoutButton(_ sender: Any) {
-    }
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
     }
+    
+    @IBAction private func didTapLogoutButton(_ sender: Any) {
+    }
+    
+  
 }
