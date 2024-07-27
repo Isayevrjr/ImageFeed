@@ -39,7 +39,7 @@ final class SingleImageViewController: UIViewController {
     
     @IBAction func didTapShareButton(_ sender: Any) {
         guard let image else { return }
-        var share = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        let share = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         
         present(share, animated: true, completion: nil)
     }
