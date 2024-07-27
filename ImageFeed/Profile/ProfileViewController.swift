@@ -2,7 +2,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    var avatarImageView: UIImageView {
+    var avatarImageView: UIImageView = {
         let avatar = UIImageView()
         avatar.translatesAutoresizingMaskIntoConstraints = false
         avatar.image = UIImage(named: "Avatar")
@@ -11,44 +11,43 @@ class ProfileViewController: UIViewController {
         avatar.contentMode = .scaleAspectFit
         
         return avatar
-    }
+    }()
     
-    var namelabel: UILabel {
+    var namelabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Екатерина Новикова"
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 23)
         return label
-    }
+    }()
     
-    var loginNameLabel: UILabel {
+    var loginNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "@ekaterina_nov"
         label.font = UIFont.systemFont(ofSize: 13)
         label.textColor = .gray
         return label
-    }
+    }()
     
-    var descriptionLabel: UILabel {
+    var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Hello world!"
         label.font = UIFont.systemFont(ofSize: 13)
         label.textColor = .gray
         return label
-    }
+    }()
     
-    var logoutButton: UIButton {
-        let button = UIButton.systemButton(with: UIImage(named: "Logout_button") ?? UIImage(),
-                                           target: self,
-                                           action: #selector(didTapLogoutButton))
+    var logoutButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "Logout_button"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
         button.widthAnchor.constraint(equalToConstant: 40).isActive = true
         return button
-    }
+    }()
     
     
     
@@ -82,7 +81,7 @@ class ProfileViewController: UIViewController {
         descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         
         logoutButton.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor).isActive = true
-        logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 24).isActive = true
+        logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
     }
     
     @objc
