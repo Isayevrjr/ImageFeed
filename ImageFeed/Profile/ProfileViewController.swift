@@ -36,7 +36,7 @@ class ProfileViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Hello world!"
         label.font = UIFont.systemFont(ofSize: 13)
-        label.textColor = .gray
+        label.textColor = .white
         return label
     }()
     
@@ -44,8 +44,8 @@ class ProfileViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(named: "Logout_button"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 44).isActive = true
         return button
     }()
     
@@ -77,7 +77,7 @@ class ProfileViewController: UIViewController {
         loginNameLabel.topAnchor.constraint(equalTo: namelabel.bottomAnchor, constant: 8).isActive = true
         loginNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         
-        descriptionLabel.topAnchor.constraint(equalTo: logoutButton.bottomAnchor, constant: 8).isActive = true
+        descriptionLabel.topAnchor.constraint(equalTo: loginNameLabel.bottomAnchor, constant: 8).isActive = true
         descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         
         logoutButton.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor).isActive = true
