@@ -114,14 +114,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="csW-47-j22">
-                                <rect key="frame" x="-20" y="-28" width="433" height="908"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="csW-47-j22">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="aVG-rI-5hs">
-                                        <rect key="frame" x="20" y="20" width="413" height="880"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="aVG-rI-5hs">
+                                        <rect key="frame" x="0.0" y="0.0" width="1600" height="1059"/>
                                     </imageView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="aVG-rI-5hs" firstAttribute="top" secondItem="81T-Zh-LHI" secondAttribute="top" id="3sG-pN-cgb"/>
+                                    <constraint firstItem="aVG-rI-5hs" firstAttribute="leading" secondItem="81T-Zh-LHI" secondAttribute="leading" id="WVC-BU-YrI"/>
+                                    <constraint firstItem="81T-Zh-LHI" firstAttribute="trailing" secondItem="aVG-rI-5hs" secondAttribute="trailing" id="a6q-RO-Pf6"/>
+                                    <constraint firstItem="81T-Zh-LHI" firstAttribute="bottom" secondItem="aVG-rI-5hs" secondAttribute="bottom" id="zDV-pu-PcA"/>
+                                </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="81T-Zh-LHI"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="f0j-gm-MIH"/>
                                 <connections>
