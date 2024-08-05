@@ -21,11 +21,14 @@ extension URLSession {
             if let data = data, let response = response, let statusCode = (response as? HTTPURLResponse)?.statusCode {
                 if 200 ..< 300 ~= statusCode {
                     fulfillCompletionOnTheMainThread(.success(data))
+                    print("Success Status: \(statusCode)")
                 } else {
                     fulfillCompletionOnTheMainThread(.failure(NetworkError.httpStatusCode(statusCode)))
+                    print("Status: \(statusCode)")
                 }
             } else if let error = error {
                 fulfillCompletionOnTheMainThread(.failure(NetworkError.urlRequestError(error)))
+                print(error.localizedDescription)
             } else {
                 fulfillCompletionOnTheMainThread(.failure(NetworkError.urlSessionError))
             }
