@@ -31,6 +31,7 @@ extension URLSession {
                 print(error.localizedDescription)
             } else {
                 fulfillCompletionOnTheMainThread(.failure(NetworkError.urlSessionError))
+                print(error?.localizedDescription as Any)
             }
         })
         

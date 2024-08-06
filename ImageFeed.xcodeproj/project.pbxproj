@@ -23,7 +23,6 @@
 		57B84C342C60DA8000C28097 /* URLSession+data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B84C332C60DA8000C28097 /* URLSession+data.swift */; };
 		57B84C362C60DC0500C28097 /* OAuthTokenResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B84C352C60DC0500C28097 /* OAuthTokenResponseBody.swift */; };
 		57B84C392C60E5DF00C28097 /* OAuth2TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B84C382C60E5DF00C28097 /* OAuth2TokenStorage.swift */; };
-		57B84C3B2C60F74B00C28097 /* URLRequestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B84C3A2C60F74B00C28097 /* URLRequestExtension.swift */; };
 		57B84C3E2C61357900C28097 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B84C3D2C61357900C28097 /* SplashViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,7 +45,6 @@
 		57B84C332C60DA8000C28097 /* URLSession+data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+data.swift"; sourceTree = "<group>"; };
 		57B84C352C60DC0500C28097 /* OAuthTokenResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthTokenResponseBody.swift; sourceTree = "<group>"; };
 		57B84C382C60E5DF00C28097 /* OAuth2TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2TokenStorage.swift; sourceTree = "<group>"; };
-		57B84C3A2C60F74B00C28097 /* URLRequestExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestExtension.swift; sourceTree = "<group>"; };
 		57B84C3D2C61357900C28097 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,7 +150,6 @@
 			isa = PBXGroup;
 			children = (
 				57B84C332C60DA8000C28097 /* URLSession+data.swift */,
-				57B84C3A2C60F74B00C28097 /* URLRequestExtension.swift */,
 			);
 			path = "URL + Extension";
 			sourceTree = "<group>";
@@ -258,7 +255,6 @@
 				57B84C3E2C61357900C28097 /* SplashViewController.swift in Sources */,
 				57A467932C5BB3C100EB651B /* WebViewViewController.swift in Sources */,
 				57B84C302C5EA5D100C28097 /* OAuth2Service.swift in Sources */,
-				57B84C3B2C60F74B00C28097 /* URLRequestExtension.swift in Sources */,
 				57B84C392C60E5DF00C28097 /* OAuth2TokenStorage.swift in Sources */,
 				5729519B2C36E4280063B5CD /* SceneDelegate.swift in Sources */,
 			);
