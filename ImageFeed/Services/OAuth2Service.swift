@@ -30,7 +30,7 @@ final class OAuth2Service {
     }
     
     func fetchAuthToken(_ code: String,
-        complition: @escaping (Result<String,Error>) -> Void) {
+                        complition: @escaping (Result<String,Error>) -> Void) {
         guard let request = makeOAuthTokenRequest(code: code) else {
             print("Error in creating the OAuth token request")
             return
@@ -40,13 +40,10 @@ final class OAuth2Service {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let body):
-                    do { let authToken = body.accessToken
-                        self.authToken = authToken
-                        complition(.success(authToken))
-                    } catch {
-                        print("failed data decoding",#file, #function, #line)
-                        complition(.failure(error))
-                    }
+                    let authToken = body.accessToken
+                    self.authToken = authToken
+                    complition(.success(authToken))
+                    
                 case .failure(let error):
                     complition(.failure(error))
                 }
@@ -60,17 +57,21 @@ final class OAuth2Service {
         complition: @escaping (Result<OAuthTokenResponseBody,Error>) -> Void
     ) -> URLSessionTask {
         
-            let decoder = JSONDecoder()
-            return urlSession.data(for: request ) { (result: Result<Data, Error>) in
-                let response = result.flatMap { data -> Result<OAuthTokenResponseBody, Error> in
-                    Result {
-                        try decoder.decode(OAuthTokenResponseBody.self, from: data)
-                        
+        let decoder = JSONDecoder()
+        return urlSession.data(for: request ) { (result: Result<Data, Error>) in
+            let response = result.flatMap { data -> Result<OAuthTokenResponseBody, Error> in
+                Result {
+                    do { 
+                        return try decoder.decode(OAuthTokenResponseBody.self, from: data)
+                    } catch {
+                        print("failed data decoding")
+                        throw error
                     }
                 }
-                complition(response)
             }
+            complition(response)
         }
-        
     }
+    
+}
 
