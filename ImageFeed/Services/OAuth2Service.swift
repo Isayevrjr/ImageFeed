@@ -1,9 +1,15 @@
 import UIKit
 
+enum AuthServiceError: Error {
+    case invalidRequest
+}
+
 final class OAuth2Service {
     
     static let shared = OAuth2Service()
     private var urlSession = URLSession.shared
+    private var task: URLSessionTask?
+    private var lastCode: String?
     private init() {}
     private (set) var authToken: String {
         get {
@@ -13,29 +19,27 @@ final class OAuth2Service {
             OAuth2TokenStorage().token = newValue
         }
     }
+
     
-    func makeOAuthTokenRequest(code: String) -> URLRequest? {
-        let baseURL = URL(string: "https://unsplash.com")
-        let url = URL(
-            string: "/oauth/token"
-            + "?client_id=\(Constants.accessKey)"
-            + "&&client_secret=\(Constants.secretKey)"
-            + "&&redirect_uri=\(Constants.redirectURI)"
-            + "&&code=\(code)"
-            + "&&grant_type=authorization_code",
-            relativeTo: baseURL)!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        return request
-    }
+    // MARK: - fetchOAuthToken
     
     func fetchAuthToken(_ code: String,
                         complition: @escaping (Result<String,Error>) -> Void) {
-        guard let request = makeOAuthTokenRequest(code: code) else {
-            print("Error in creating the OAuth token request")
+        assert(Thread.isMainThread)
+        guard lastCode != code else {
+            complition(.failure(AuthServiceError.invalidRequest))
             return
         }
-        let task = object(for: request) { [weak self] result in
+        
+        task?.cancel()
+        lastCode = code
+        
+        guard let request = makeOAuthTokenRequest(code: code) else {
+            complition(.failure(AuthServiceError.invalidRequest))
+            return
+        }
+     
+        let task = urlSession.objectTask(for: request) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -43,35 +47,40 @@ final class OAuth2Service {
                     let authToken = body.accessToken
                     self.authToken = authToken
                     complition(.success(authToken))
-                    
+                    self.task = nil
+                    self.lastCode = nil
                 case .failure(let error):
+                    print("Failed to get accessToken")
                     complition(.failure(error))
                 }
             }
         }
+        self.task = task
         task.resume()
     }
     
-    func object(
-        for request: URLRequest,
-        complition: @escaping (Result<OAuthTokenResponseBody,Error>) -> Void
-    ) -> URLSessionTask {
-        
-        let decoder = JSONDecoder()
-        return urlSession.data(for: request ) { (result: Result<Data, Error>) in
-            let response = result.flatMap { data -> Result<OAuthTokenResponseBody, Error> in
-                Result {
-                    do { 
-                        return try decoder.decode(OAuthTokenResponseBody.self, from: data)
-                    } catch {
-                        print("failed data decoding")
-                        throw error
-                    }
-                }
-            }
-            complition(response)
-        }
-    }
     
+    // MARK: - makeOAuthTokenRequest
+    
+    func makeOAuthTokenRequest(code: String) -> URLRequest? {
+        let baseURL = URL(string: "https://unsplash.com")
+        guard let url = URL(
+            string: "/oauth/token"
+            + "?client_id=\(Constants.accessKey)"
+            + "&&client_secret=\(Constants.secretKey)"
+            + "&&redirect_uri=\(Constants.redirectURI)"
+            + "&&code=\(code)"
+            + "&&grant_type=authorization_code",
+            relativeTo: baseURL)
+        else {
+            assertionFailure("Failed to create URL")
+            return nil
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        return request
+    }
+
 }
 
