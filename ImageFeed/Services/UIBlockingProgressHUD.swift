@@ -11,7 +11,6 @@ final class UIBlockingProgressHUD {
         ProgressHUD.animate()
     }
     
-    
     static func dismiss() {
         window?.isUserInteractionEnabled = true
         ProgressHUD.dismiss()

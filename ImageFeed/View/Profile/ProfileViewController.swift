@@ -2,6 +2,8 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    private var profileService = ProfileService.shared
+    
     var avatarImageView: UIImageView = {
         let avatar = UIImageView()
         avatar.translatesAutoresizingMaskIntoConstraints = false
@@ -56,6 +58,7 @@ class ProfileViewController: UIViewController {
         addConstrains()
         
     }
+ 
     
     func addSubviews() {
         view.addSubview(avatarImageView)
