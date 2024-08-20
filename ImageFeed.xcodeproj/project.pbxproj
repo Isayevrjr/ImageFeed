@@ -127,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				579E202B2C45535000AED135 /* ProfileViewController.swift */,
+				57F8A1F32C6F910A0067DD31 /* ProfileService.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -147,7 +148,6 @@
 				57B84C352C60DC0500C28097 /* OAuthTokenResponseBody.swift */,
 				57B84C382C60E5DF00C28097 /* OAuth2TokenStorage.swift */,
 				57F8A1F12C6EE49E0067DD31 /* UIBlockingProgressHUD.swift */,
-				57F8A1F32C6F910A0067DD31 /* ProfileService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";

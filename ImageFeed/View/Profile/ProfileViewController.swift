@@ -57,6 +57,17 @@ class ProfileViewController: UIViewController {
         addSubviews()
         addConstrains()
         
+        guard let profile = profileService.profile else {
+            print("No profile data found")
+            return
+        }
+        updateProfileDetails(profile: profile)
+    }
+    
+    private func updateProfileDetails(profile: Profile) {
+        namelabel.text = profile.name
+        loginNameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio
     }
  
     
