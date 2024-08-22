@@ -3,13 +3,13 @@ import UIKit
 // MARK: - ProfileResult
 
 struct ProfileResult: Codable {
-    let userName: String
+    let username: String
     let firstName: String
     let lastName: String?
     let bio: String?
     
     enum CodingKeys: String, CodingKey {
-        case userName
+        case username = "username"
         case firstName = "first_name"
         case lastName = "last_name"
         case bio
@@ -19,15 +19,15 @@ struct ProfileResult: Codable {
 // MARK: - Profile
 
 struct Profile {
-    let userName: String
+    let username: String
     let name: String
     let loginName: String
     let bio: String
     
     init(result: ProfileResult) {
-        self.userName = result.userName
+        self.username = result.username
         self.name = ("\(result.firstName) \(result.lastName ?? "")")
-        self.loginName = ("@\(result.userName)")
+        self.loginName = ("@\(result.username)")
         self.bio = result.bio ?? ""
     }
 }
@@ -48,6 +48,7 @@ final class ProfileService {
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
     private(set) var profile: Profile?
+    private var lastToken: String?
     
     private init() {
         
@@ -84,14 +85,13 @@ final class ProfileService {
             }
             
         }
-        
+        task?.resume()
     }
-    
     
     //MARK: - Make URLRequest
     
     private func makeBaseRequest(token: String) -> URLRequest? {
-        let baseURL = URL(string: "me", relativeTo: Constants.defaultBaseURL)
+        let baseURL = URL(string: "/me", relativeTo: Constants.defaultBaseURL)
         
         guard let url = baseURL else {
             print("Failed to create URL")
@@ -100,7 +100,7 @@ final class ProfileService {
         
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        
+        request.httpMethod = "GET"
         return request
     }
     

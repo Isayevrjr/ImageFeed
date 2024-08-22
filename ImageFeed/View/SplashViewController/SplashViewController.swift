@@ -13,8 +13,8 @@ final class SplashViewController: UIViewController {
         super.viewDidAppear(animated)
 
         if let token = oauth2TokenStorage.token {
-            switchToTabBarController()
             fetchProfile(token)
+            switchToTabBarController()
         } else {
             performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
         }
