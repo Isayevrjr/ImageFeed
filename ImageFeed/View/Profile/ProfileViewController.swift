@@ -3,6 +3,7 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     private var profileService = ProfileService.shared
+    private var profileImageServiceObserver: NSObjectProtocol?
     
     var avatarImageView: UIImageView = {
         let avatar = UIImageView()
@@ -62,12 +63,29 @@ class ProfileViewController: UIViewController {
             return
         }
         updateProfileDetails(profile: profile)
+        
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(
+                forName: ProfileImageService.didChangeNotification,
+                object: nil, queue: .main) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
     }
     
     private func updateProfileDetails(profile: Profile) {
         namelabel.text = profile.name
         loginNameLabel.text = profile.loginName
         descriptionLabel.text = profile.bio
+    }
+    
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+        // TODO [Sprint 11] Обновить аватар, используя Kingfisher
     }
  
     

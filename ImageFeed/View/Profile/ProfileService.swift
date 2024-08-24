@@ -48,11 +48,7 @@ final class ProfileService {
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
     private(set) var profile: Profile?
-    private var lastToken: String?
-    
-    private init() {
-        
-    }
+    private init() { }
     
     // MARK: - Fetch Profile
     

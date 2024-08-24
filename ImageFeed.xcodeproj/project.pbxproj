@@ -14,6 +14,7 @@
 		572951A22C36E4290063B5CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 572951A12C36E4290063B5CD /* Assets.xcassets */; };
 		572951A52C36E4290063B5CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 572951A32C36E4290063B5CD /* LaunchScreen.storyboard */; };
 		5730DD7D2C5A327900CDEFD6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5730DD7C2C5A327900CDEFD6 /* Constants.swift */; };
+		57368FC32C774CD900FE81AA /* ProfileImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57368FC22C774CD900FE81AA /* ProfileImageService.swift */; };
 		579E1FDD2C3D3F1F00AED135 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579E1FDC2C3D3F1F00AED135 /* ImagesListCell.swift */; };
 		579E202C2C45535000AED135 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579E202B2C45535000AED135 /* ProfileViewController.swift */; };
 		579E202F2C479F1400AED135 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579E202E2C479F1400AED135 /* SingleImageViewController.swift */; };
@@ -39,6 +40,7 @@
 		572951A42C36E4290063B5CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		572951A62C36E4290063B5CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5730DD7C2C5A327900CDEFD6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		57368FC22C774CD900FE81AA /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
 		579E1FDC2C3D3F1F00AED135 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		579E202B2C45535000AED135 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		579E202E2C479F1400AED135 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			children = (
 				579E202B2C45535000AED135 /* ProfileViewController.swift */,
 				57F8A1F32C6F910A0067DD31 /* ProfileService.swift */,
+				57368FC22C774CD900FE81AA /* ProfileImageService.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				57B84C362C60DC0500C28097 /* OAuthTokenResponseBody.swift in Sources */,
 				579E202C2C45535000AED135 /* ProfileViewController.swift in Sources */,
 				572951992C36E4280063B5CD /* AppDelegate.swift in Sources */,
+				57368FC32C774CD900FE81AA /* ProfileImageService.swift in Sources */,
 				57A467902C5BA8A500EB651B /* AuthViewController.swift in Sources */,
 				5730DD7D2C5A327900CDEFD6 /* Constants.swift in Sources */,
 				579E202F2C479F1400AED135 /* SingleImageViewController.swift in Sources */,
