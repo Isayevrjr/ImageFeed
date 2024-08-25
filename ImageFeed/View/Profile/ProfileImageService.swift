@@ -46,7 +46,7 @@ final class ProfileImageService {
             
             switch result {
             case .success(let userResult):
-                self.avatarURL = userResult.profileImage.small
+                self.avatarURL = userResult.profileImage.medium
                 
                 guard let avatarURL = self.avatarURL else {
                     print("failed to get avatarURL")
@@ -67,7 +67,8 @@ final class ProfileImageService {
                 completion(.failure(error))
             }
         }
-        
+       
+        task?.resume()
         
     }
     

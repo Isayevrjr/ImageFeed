@@ -1,9 +1,11 @@
 import UIKit
+import Kingfisher
 
 class ProfileViewController: UIViewController {
     
     private var profileService = ProfileService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
+    
     
     var avatarImageView: UIImageView = {
         let avatar = UIImageView()
@@ -84,10 +86,21 @@ class ProfileViewController: UIViewController {
         guard
             let profileImageURL = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageURL)
-        else { return }
-        // TODO [Sprint 11] Обновить аватар, используя Kingfisher
+        else {
+            print("Error -", #fileID, #function)
+            return
+        }
+      
+        let procesoor = RoundCornerImageProcessor(cornerRadius: 35, backgroundColor: UIColor(named: "YP Black"))
+        
+        avatarImageView.kf.indicatorType = .activity
+        avatarImageView.kf.setImage(with: url,
+                                         placeholder: UIImage(named: "Placeholder"),
+                                         options: [.processor(procesoor)]
+        )
     }
- 
+   
+  
     
     func addSubviews() {
         view.addSubview(avatarImageView)
