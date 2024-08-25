@@ -38,8 +38,6 @@ enum ProfileServiceError: Error {
     case invalidRequest
 }
 
-
-
 // MARK: - ProfileService
 
 final class ProfileService {

@@ -53,15 +53,24 @@ extension AuthViewController: WebViewViewControllerDelegate {
                 let tokenStorage = OAuth2TokenStorage()
                 tokenStorage.token = accessToken
                 delegate?.didAuthenticate(self)
-            case .failure:
-                print("Error")
-                break
+            case .failure(let error):
+                print("Failed to fetch OAuthToken: \(error.localizedDescription)")
+                showAlert()
             }
         }
     }
     
     func ViewViewControllerDidCancle(_ vc: WebViewViewController) {
         dismiss(animated: true)
+    }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Что-то пошло не так",
+                                      message: "Не удалось войти в систему",
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(action)
+        present(alert, animated: true)
     }
     
 }
