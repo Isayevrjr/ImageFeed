@@ -1,16 +1,26 @@
 import UIKit
-
+import SwiftKeychainWrapper
 
 class OAuth2TokenStorage {
-    let storage = UserDefaults.standard
     let key = "Bearer Token"
+    private let keychain = KeychainWrapper.standard
     
     var token: String? {
         get {
-            storage.string(forKey: key)
+            keychain.string(forKey: key)
         }
         set {
-            storage.setValue(newValue, forKey: key)
+            guard let newValue else {
+                print("Invalid token", #fileID, #function, #line)
+                return
+            }
+            let isSuccess = keychain.set(newValue, forKey: key)
+            
+            guard isSuccess else {
+                print("Error to save token")
+                return
+            }
+            
         }
     }
     
