@@ -8,6 +8,20 @@ final class SplashViewController: UIViewController {
     
     private let oauth2TokenStorage = OAuth2TokenStorage()
     private let profileService = ProfileService.shared
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+    
+    var imageView: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.image = UIImage(named: "Vector_logo")
+        image.contentMode = .scaleAspectFit
+        return image
+    }()
+    
+   
+    
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -15,19 +29,41 @@ final class SplashViewController: UIViewController {
         if let token = oauth2TokenStorage.token {
             fetchProfile(token)
         } else {
-            performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
+            showAuthViewController()
         }
-        
     }
     
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.addSubview(imageView)
+        addConstrains()
+    }
+    
+    private func addConstrains() {
+        imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    private func showAuthViewController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        guard
+            let navigationViewController = storyboard.instantiateViewController(
+                withIdentifier: "NavigationController"
+            ) as? UINavigationController,
+            let authViewController = navigationViewController.topViewController as? AuthViewController
+        else {
+            print("[\(#fileID)]:[\(#function)] -> Wrong AuthView configuration")
+            return
+        }
+        authViewController.delegate = self
+        navigationViewController.modalPresentationStyle = .fullScreen
+        present(navigationViewController, animated: true)
     }
 
     private func switchToTabBarController() {
@@ -78,3 +114,5 @@ extension SplashViewController: AuthViewControllerDelegate {
         fetchProfile(token)
     }
 }
+
+
