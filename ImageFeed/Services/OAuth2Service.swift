@@ -39,8 +39,9 @@ final class OAuth2Service {
             return
         }
      
-        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<OAuthTokenResponseBody, Error>) in
-            guard let self = self else { return }
+        let task = urlSession.objectTask(for: request) { 
+            [self] (result: Result<OAuthTokenResponseBody, Error>) in
+            
             DispatchQueue.main.async {
                 switch result {
                 case .success(let body):

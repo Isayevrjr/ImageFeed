@@ -12,6 +12,7 @@ final class SplashViewController: UIViewController {
         .lightContent
     }
     
+    
     var imageView: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -19,9 +20,6 @@ final class SplashViewController: UIViewController {
         image.contentMode = .scaleAspectFit
         return image
     }()
-    
-   
-    
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -30,6 +28,7 @@ final class SplashViewController: UIViewController {
             fetchProfile(token)
         } else {
             showAuthViewController()
+            showAlert()
         }
     }
     
@@ -49,6 +48,15 @@ final class SplashViewController: UIViewController {
     private func addConstrains() {
         imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    private func showAlert() {
+        let alert = UIAlertController(title: "Что-то пошло не так",
+                                      message: "Не удалось войти в систему",
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(action)
+        present(alert, animated: true)
     }
     
     private func showAuthViewController() {
@@ -91,20 +99,6 @@ final class SplashViewController: UIViewController {
                 }
             }
         }
-}
-
-extension SplashViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == ShowAuthenticationScreenSegueIdentifier {
-            guard
-                let navigationController = segue.destination as? UINavigationController,
-                let viewController = navigationController.viewControllers[0] as? AuthViewController
-            else { fatalError("Failed to prepare for \(ShowAuthenticationScreenSegueIdentifier)") }
-            viewController.delegate = self
-        } else {
-            super.prepare(for: segue, sender: sender)
-        }
-    }
 }
 
 extension SplashViewController: AuthViewControllerDelegate {
