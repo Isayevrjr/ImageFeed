@@ -10,18 +10,11 @@ class OAuth2TokenStorage {
             keychain.string(forKey: key)
         }
         set {
-            guard let newValue else {
+            if let newValue {
+                keychain.set(newValue, forKey: key)
+            } else {
                 print("Invalid token", #fileID, #function, #line)
-                return
             }
-            let isSuccess = keychain.set(newValue, forKey: key)
-            
-            guard isSuccess else {
-                print("Error to save token")
-                return
-            }
-            
         }
     }
-    
 }

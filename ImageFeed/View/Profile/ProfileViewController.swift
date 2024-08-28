@@ -1,5 +1,6 @@
 import UIKit
 import Kingfisher
+import SwiftKeychainWrapper
 
 class ProfileViewController: UIViewController {
     
@@ -129,7 +130,7 @@ class ProfileViewController: UIViewController {
     
     @objc
     private func didTapLogoutButton() {
-        
+        KeychainWrapper.standard.removeAllKeys()
     }
   
 }
