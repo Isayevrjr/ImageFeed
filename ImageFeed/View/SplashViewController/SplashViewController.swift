@@ -28,7 +28,6 @@ final class SplashViewController: UIViewController {
             fetchProfile(token)
         } else {
             showAuthViewController()
-            showAlert()
         }
     }
     
@@ -48,15 +47,6 @@ final class SplashViewController: UIViewController {
     private func addConstrains() {
         imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    }
-    
-    private func showAlert() {
-        let alert = UIAlertController(title: "Что-то пошло не так",
-                                      message: "Не удалось войти в систему",
-                                      preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(action)
-        present(alert, animated: true)
     }
     
     private func showAuthViewController() {
