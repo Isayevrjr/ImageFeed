@@ -24,10 +24,16 @@ final class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if let token = oauth2TokenStorage.token {
-            fetchProfile(token)
-        } else {
-            showAuthViewController()
+        UIBlockingProgressHUD.show()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+            if let token = self.oauth2TokenStorage.token {
+                self.fetchProfile(token)
+                UIBlockingProgressHUD.dismiss()
+            } else {
+                self.showAuthViewController()
+                UIBlockingProgressHUD.dismiss()
+            }
         }
     }
     
@@ -48,6 +54,7 @@ final class SplashViewController: UIViewController {
         imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
+
     
     private func showAuthViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
