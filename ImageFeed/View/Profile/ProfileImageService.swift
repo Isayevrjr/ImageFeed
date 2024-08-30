@@ -18,7 +18,6 @@ struct ProfileImage: Codable {
     let large: String
 }
 
-
 //MARK: - ProfileImageService
 final class ProfileImageService {
     

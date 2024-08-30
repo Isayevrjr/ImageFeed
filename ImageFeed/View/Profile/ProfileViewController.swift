@@ -1,5 +1,6 @@
 import UIKit
 import Kingfisher
+import SwiftKeychainWrapper
 
 class ProfileViewController: UIViewController {
     
@@ -46,8 +47,10 @@ class ProfileViewController: UIViewController {
     }()
     
     var logoutButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "Logout_button"), for: .normal)
+        let button = UIButton.systemButton(with: UIImage(named: "Logout_button")!, 
+                                           target: self,
+                                           action: #selector(Self.didTapLogoutButton))
+        button.tintColor = .ypRed
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: 44).isActive = true
         button.widthAnchor.constraint(equalToConstant: 44).isActive = true
@@ -130,6 +133,7 @@ class ProfileViewController: UIViewController {
     
     @objc
     private func didTapLogoutButton() {
+        KeychainWrapper.standard.removeObject(forKey: "Bearer Token")
     
     }
   

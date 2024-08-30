@@ -2,6 +2,7 @@ import UIKit
 
 protocol AuthViewControllerDelegate: AnyObject {
     func didAuthenticate(_ vc: AuthViewController)
+    func showAlert()
 }
 
 
@@ -35,27 +36,16 @@ final class AuthViewController: UIViewController {
         navigationItem.backBarButtonItem?.tintColor = .black
     }
     
-    
-    private func showAlert() {
-        let alert = UIAlertController(title: "Что-то пошло не так",
-                                      message: "Не удалось войти в систему",
-                                      preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(action)
-        present(alert, animated: true)
-    }
-    
 }
 
 // MARK: - extension web view delegate
 
 extension AuthViewController: WebViewViewControllerDelegate {
-    func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
-        
+   func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
         dismiss(animated: true)
         UIBlockingProgressHUD.show()
         oauth2Service.fetchAuthToken(code) { [weak self] result in
-            UIBlockingProgressHUD.dismiss()
+           UIBlockingProgressHUD.dismiss()
             guard let self = self else { return }
             
             switch result {
@@ -65,7 +55,7 @@ extension AuthViewController: WebViewViewControllerDelegate {
                 delegate?.didAuthenticate(self)
             case .failure(let error):
                 print("Failed to fetch OAuthToken: \(error.localizedDescription)")
-                showAlert()
+                delegate?.showAlert()
             }
         }
         

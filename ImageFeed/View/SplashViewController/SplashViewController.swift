@@ -1,8 +1,6 @@
 import UIKit
 import ProgressHUD
 
-
-
 final class SplashViewController: UIViewController {
     private let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
     
@@ -11,7 +9,6 @@ final class SplashViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
-    
     
     var imageView: UIImageView = {
         let image = UIImageView()
@@ -55,7 +52,6 @@ final class SplashViewController: UIViewController {
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 
-    
     private func showAuthViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
         guard
@@ -92,18 +88,25 @@ final class SplashViewController: UIViewController {
                     self.switchToTabBarController()
                 case .failure:
                     print("Error")
-                    break
                 }
             }
         }
+    
 }
 
 extension SplashViewController: AuthViewControllerDelegate {
     func didAuthenticate(_ vc: AuthViewController) {
         vc.dismiss(animated: true)
-        
-        guard let token = oauth2TokenStorage.token else { return }
-        fetchProfile(token)
+
+    }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Что-то пошло не так",
+                                      message: "Не удалось войти в систему",
+                                      preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(action)
+        present(alert, animated: true)
     }
 }
 
