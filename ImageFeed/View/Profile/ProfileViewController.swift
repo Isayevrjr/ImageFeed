@@ -131,8 +131,20 @@ class ProfileViewController: UIViewController {
         logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
     }
     
+    func showAlert() {
+        let alert = UIAlertController(title: "Выход из профиля", message: "Закройте окно приложения и перезайдите", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "ОК", style: .default)
+        
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
+    
     @objc
     private func didTapLogoutButton() {
+       showAlert()
+        
+        
         KeychainWrapper.standard.removeObject(forKey: "Bearer Token")
     
     }
