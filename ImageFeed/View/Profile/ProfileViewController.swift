@@ -1,6 +1,12 @@
 import UIKit
+import Kingfisher
+import SwiftKeychainWrapper
 
 class ProfileViewController: UIViewController {
+    
+    private var profileService = ProfileService.shared
+    private var profileImageServiceObserver: NSObjectProtocol?
+    
     
     var avatarImageView: UIImageView = {
         let avatar = UIImageView()
@@ -41,8 +47,10 @@ class ProfileViewController: UIViewController {
     }()
     
     var logoutButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "Logout_button"), for: .normal)
+        let button = UIButton.systemButton(with: UIImage(named: "Logout_button")!, 
+                                           target: self,
+                                           action: #selector(Self.didTapLogoutButton))
+        button.tintColor = .ypRed
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: 44).isActive = true
         button.widthAnchor.constraint(equalToConstant: 44).isActive = true
@@ -51,11 +59,52 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor(named: "YP Black")
         
         addSubviews()
         addConstrains()
         
+        guard let profile = profileService.profile else {
+            print("No profile data found")
+            return
+        }
+        updateProfileDetails(profile: profile)
+        
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(
+                forName: ProfileImageService.didChangeNotification,
+                object: nil, queue: .main) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
     }
+    
+    private func updateProfileDetails(profile: Profile) {
+        namelabel.text = profile.name
+        loginNameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio
+    }
+    
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else {
+            print("Error -", #fileID, #function)
+            return
+        }
+      
+        let procesoor = RoundCornerImageProcessor(cornerRadius: 35, backgroundColor: UIColor(named: "YP Black"))
+        
+        avatarImageView.kf.indicatorType = .activity
+        avatarImageView.kf.setImage(with: url,
+                                         placeholder: UIImage(named: "Placeholder"),
+                                         options: [.processor(procesoor)]
+        )
+    }
+   
+  
     
     func addSubviews() {
         view.addSubview(avatarImageView)
@@ -82,9 +131,22 @@ class ProfileViewController: UIViewController {
         logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
     }
     
+    func showAlert() {
+        let alert = UIAlertController(title: "Выход из профиля", message: "Закройте окно приложения и перезайдите", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "ОК", style: .default)
+        
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
+    
     @objc
     private func didTapLogoutButton() {
+       showAlert()
         
+        
+        KeychainWrapper.standard.removeObject(forKey: "Bearer Token")
+    
     }
   
 }

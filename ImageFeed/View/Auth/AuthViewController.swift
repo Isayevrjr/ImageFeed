@@ -1,13 +1,16 @@
 import UIKit
 
 protocol AuthViewControllerDelegate: AnyObject {
-    func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String)
+    func didAuthenticate(_ vc: AuthViewController)
+    func showAlert()
 }
 
 
 final class AuthViewController: UIViewController {
+    private let oauth2Service = OAuth2Service.shared
     let showWebViewSegueIdentifier = "ShowWebView"
     var delegate: AuthViewControllerDelegate?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +41,23 @@ final class AuthViewController: UIViewController {
 // MARK: - extension web view delegate
 
 extension AuthViewController: WebViewViewControllerDelegate {
-    func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
-        delegate?.authViewController(self, didAuthenticateWithCode: code)
+   func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
+        dismiss(animated: true)
+        UIBlockingProgressHUD.show()
+        oauth2Service.fetchAuthToken(code) { [self] result in
+           UIBlockingProgressHUD.dismiss()
+        
+            switch result {
+            case .success(let accessToken):
+                let tokenStorage = OAuth2TokenStorage()
+                tokenStorage.token = accessToken
+                delegate?.didAuthenticate(self)
+            case .failure(let error):
+                print("Failed to fetch OAuthToken: \(error.localizedDescription)")
+                delegate?.showAlert()
+            }
+        }
+        
     }
     
     func ViewViewControllerDidCancle(_ vc: WebViewViewController) {
