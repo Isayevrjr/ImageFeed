@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 final class ImagesListCell: UITableViewCell {
     static let reuseIdentifier = "ImagesListCell"
@@ -19,6 +20,12 @@ final class ImagesListCell: UITableViewCell {
         gradient.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
         gradientView.layer.insertSublayer(gradient, at: 0)
         gradient.locations = [0.03, 2.8, 1]
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        viewImage.kf.cancelDownloadTask()
     }
 }
    

@@ -79,7 +79,7 @@ final class ImagesListService {
                 convertPhotos(photos: photos)
                 NotificationCenter.default.post(name: ImagesListService.didChangeNotification,
                                                 object: self)
-            case .failure(let error):
+            case .failure(_):
                 print("[ImagesListService: fetchPhotosNextPage]: Failed to fetch photos")
             }
             self.task = nil
