@@ -9,7 +9,7 @@ struct Photo {
     let welcomeDescription: String?
     let thumbImageURL: String
     let largeImageURL: String
-    let isLiked: Bool
+    var isLiked: Bool
 }
 
 struct PhotoResult: Decodable {
@@ -32,6 +32,10 @@ struct PhotoResult: Decodable {
     }
 }
 
+struct LikePhoto: Decodable {
+    let photo: PhotoResult
+}
+
 struct UrlResult: Decodable {
     let raw: String
     let full: String
@@ -52,6 +56,7 @@ final class ImagesListService {
     private var lastLoadedPage: Int?
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
+    private var taskLike: URLSessionTask?
     
     private init() {}
     
@@ -89,11 +94,11 @@ final class ImagesListService {
         task.resume()
     }
         
-    // MARK: - Request
+    // MARK: - Request to get photos
     
     func makePhotosRequest(page: Int) -> URLRequest? {
         guard let baseURL = URL(string: "https://api.unsplash.com") else {
-            assertionFailure("Error URLComponents")
+            assertionFailure("Error URL")
             return nil
         }
         
@@ -105,7 +110,7 @@ final class ImagesListService {
         ]
         
         guard let url = components.url else {
-            assertionFailure("Error URLComponents")
+            assertionFailure("Error URL")
             return nil }
         
         guard let authToken = OAuth2TokenStorage().token else {
@@ -139,5 +144,67 @@ final class ImagesListService {
         }
     }
     
+    // MARK: - Change Like
+    
+    func changeLike(photoId: String,
+                    isLike: Bool, _
+                    completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        assert(Thread.isMainThread)
+        taskLike?.cancel()
+        
+        guard let request = makeLikeRequest(id: photoId, isLike: isLike) else {
+            assertionFailure("Error to make like request")
+            return
+        }
+        
+        taskLike = urlSession.objectTask(for: request) { [weak self] (result: Result<LikePhoto, Error>) in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let photoResult):
+                if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
+                    var photo = self.photos[index]
+                    photo.isLiked = photoResult.photo.isLiked
+                } else {
+                    print("failed to find photo with ID \(photoId)")
+                }
+            case .failure(let error):
+                print("failed to like/dislike photo: \(error.localizedDescription)")
+            }
+            self.taskLike = nil
+        }
+        taskLike?.resume()
+    }
+    
+    // MARK: - Like Request
+    
+    func makeLikeRequest(id: String, isLike: Bool) -> URLRequest? {
+        guard let baseURL = URL(string: "https://api.unsplash.com") else {
+            assertionFailure("Error URL")
+            return nil
+        }
+        
+        guard var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true) else {
+            return nil }
+        
+        components.path = "/photos/\(id)/like"
+        
+        guard let url = components.url else {
+            assertionFailure("Error to create URL")
+            return nil
+        }
+        
+        guard let authToken = OAuth2TokenStorage().token else {
+            assertionFailure("Error authToken")
+            return nil
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = isLike ? "POST" : "DELETE"
+        request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        
+        return request
+    }
     
 }

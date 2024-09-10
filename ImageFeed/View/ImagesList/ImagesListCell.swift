@@ -27,6 +27,11 @@ final class ImagesListCell: UITableViewCell {
         
         viewImage.kf.cancelDownloadTask()
     }
+    
+    
+    @IBAction func likeButtinClicked(_ sender: Any) {
+    }
+    
 }
    
      

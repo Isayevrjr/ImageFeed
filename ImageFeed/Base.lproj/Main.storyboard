@@ -54,6 +54,9 @@
                                                         <constraint firstAttribute="height" constant="44" id="MMe-v4-lft"/>
                                                     </constraints>
                                                     <buttonConfiguration key="configuration" style="plain" image="Like_button_on"/>
+                                                    <connections>
+                                                        <action selector="likeButtinClicked:" destination="9q9-ib-KBa" eventType="touchUpInside" id="SZx-8M-ULO"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
