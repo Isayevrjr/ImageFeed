@@ -87,7 +87,7 @@ final class SplashViewController: UIViewController {
                     ProfileImageService.shared.fetchProfileImageURL(username: profile.username) { _ in }
                     self.switchToTabBarController()
                 case .failure:
-                    print("Error")
+                    print("Error", #fileID, #function)
                 }
             }
         }

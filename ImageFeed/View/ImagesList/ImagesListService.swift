@@ -164,10 +164,30 @@ final class ImagesListService {
             switch result {
             case .success(let photoResult):
                 if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
-                    var photo = self.photos[index]
-                    photo.isLiked = photoResult.photo.isLiked
+                   let photo = self.photos[index]
+                   let newPhoto = Photo(
+                            id: photo.id,
+                            size: photo.size,
+                            createdAt: photo.createdAt,
+                            welcomeDescription: photo.welcomeDescription,
+                            thumbImageURL: photo.thumbImageURL,
+                            largeImageURL: photo.largeImageURL,
+                            isLiked: !photo.isLiked)
+                    DispatchQueue.main.async {
+                        self.photos[index] = newPhoto
+                        self.taskLike = nil
+                        
+                        NotificationCenter.default
+                            .post(
+                                name: ImagesListService.didChangeNotification,
+                                object: self,
+                                userInfo: ["photos": self.photos]
+                            )
+                        
+                        completion(.success(()))
+                    }
                 } else {
-                    print("failed to find photo with ID \(photoId)")
+                    print("Error to find photoID", #file, #function, #line)
                 }
             case .failure(let error):
                 print("failed to like/dislike photo: \(error.localizedDescription)")
@@ -186,7 +206,8 @@ final class ImagesListService {
         }
         
         guard var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true) else {
-            return nil }
+            return nil
+        }
         
         components.path = "/photos/\(id)/like"
         
