@@ -66,9 +66,7 @@ extension ImagesListViewController {
         cell.dateLabel.text = dateFormatter.string(from: photo.createdAt ?? Date())
         cell.viewImage.kf.indicatorType = .activity
         
-        let isLiked = indexPath.row % 2 == 0
-        let likeImage = isLiked ? UIImage(named: "Like_button_on") : UIImage(named: "Like_button_off")
-        cell.likeButton.setImage(likeImage, for: .normal)
+        cell.setIsLiked(isLiked: photos[indexPath.item].isLiked)
         
     }
     
@@ -98,6 +96,8 @@ extension ImagesListViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ImagesListCell.reuseIdentifier, for: indexPath)
         
         guard let imageListCell = cell as? ImagesListCell else { return ImagesListCell() }
+        
+        imageListCell.delegate = self
         
         configCell(for: imageListCell, with: indexPath)
         
@@ -129,6 +129,33 @@ extension ImagesListViewController: UITableViewDelegate {
         let cellHeight = image.size.height * scale + imageInsets.top + imageInsets.bottom
         
         return cellHeight
+    }
+    
+}
+
+extension ImagesListViewController: ImagesListCellDelegate {
+    func imageListCellDidTapLike(_ cell: ImagesListCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let photo = photos[indexPath.row]
+        
+        UIBlockingProgressHUD.show()
+        imagesListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) { result in
+            switch result {
+            case .success:
+                self.photos = self.imagesListService.photos
+                cell.setIsLiked(isLiked: self.photos[indexPath.row].isLiked)
+                UIBlockingProgressHUD.dismiss()
+            case .failure:
+                UIBlockingProgressHUD.dismiss()
+                print("Error", #file, #function, #line)
+                let alert = UIAlertController(title: "Что-то пошло не так(",
+                                              message: "Попробуйте ещё раз позже",
+                                              preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .default)
+                alert.addAction(action)
+                self.present(alert, animated: true)
+            }
+        }
     }
     
 }
