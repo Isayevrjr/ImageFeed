@@ -97,7 +97,7 @@ final class ImagesListService {
     // MARK: - Request to get photos
     
     func makePhotosRequest(page: Int) -> URLRequest? {
-        guard let baseURL = URL(string: "https://api.unsplash.com") else {
+        guard let baseURL = Constants.defaultBaseURL else {
             assertionFailure("Error URL")
             return nil
         }
@@ -162,7 +162,7 @@ final class ImagesListService {
             guard let self = self else { return }
             
             switch result {
-            case .success(let photoResult):
+            case .success(_):
                 if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
                    let photo = self.photos[index]
                    let newPhoto = Photo(
@@ -200,7 +200,7 @@ final class ImagesListService {
     // MARK: - Like Request
     
     func makeLikeRequest(id: String, isLike: Bool) -> URLRequest? {
-        guard let baseURL = URL(string: "https://api.unsplash.com") else {
+        guard let baseURL = Constants.defaultBaseURL else {
             assertionFailure("Error URL")
             return nil
         }
