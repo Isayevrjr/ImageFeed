@@ -63,8 +63,14 @@ extension ImagesListViewController {
         guard let imageUrl = URL(string: photo.thumbImageURL) else { return }
         
         cell.viewImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "PlaceholderForImage"))
-        cell.dateLabel.text = dateFormatter.string(from: photo.createdAt ?? Date())
         cell.viewImage.kf.indicatorType = .activity
+        
+        if let date = photo.createdAt {
+            let createdAtString = dateFormatter.string(from: date)
+            cell.dateLabel.text = createdAtString
+        } else {
+            cell.dateLabel.text = nil
+        }
         
         cell.setIsLiked(isLiked: photos[indexPath.item].isLiked)
         
