@@ -129,8 +129,7 @@ final class ImagesListService {
     // MARK: - Convert
     
     func convertPhotos(photos: [PhotoResult]) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        let dateFormatter = ISO8601DateFormatter()
         
         for photo in photos {
             let newPhoto = Photo(id: photo.id,
