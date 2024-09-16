@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 final class SingleImageViewController: UIViewController {
     var image: UIImage? {
@@ -8,6 +9,7 @@ final class SingleImageViewController: UIViewController {
             rescaleAndCenterImageInScrollView(image: image)
         }
     }
+    var imageURL: Photo?
     
     // MARK: - Outlets
     
@@ -18,15 +20,29 @@ final class SingleImageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
         
-        guard let image else { return }
-        singleImage.image = image
-        singleImage.frame.size = image.size
-        rescaleAndCenterImageInScrollView(image: image)
+        guard let imageURL else { return }
+        openImage(photo: imageURL)
         
+    }
+    
+    private func openImage(photo: Photo) {
+        
+        UIBlockingProgressHUD.show()
+        singleImage.kf.setImage(with: URL(string: photo.largeImageURL)) {[weak self] result in
+            UIBlockingProgressHUD.dismiss()
+            
+            guard let self = self else {return}
+            switch result {
+            case .success(let imageResult):
+                self.rescaleAndCenterImageInScrollView(image: imageResult.image)
+            case .failure:
+                print("[SingleImageViewController]:[setImage]: Error getting single image")
+            }
+        }
+        singleImage.frame.size = photo.size
     }
     
     // MARK: - Buttons
@@ -36,9 +52,9 @@ final class SingleImageViewController: UIViewController {
     }
     
     @IBAction func didTapShareButton(_ sender: Any) {
-        guard let image else { return }
-        let share = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        guard let image = singleImage.image else { return }
         
+        let share = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         present(share, animated: true, completion: nil)
     }
     
