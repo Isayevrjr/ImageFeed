@@ -1,5 +1,5 @@
-WebViewPresenterSpyimport Foundation
 @testable import ImageFeed
+import Foundation
 
 final class WebViewPresenterSpy: WebViewPresenterProtocol {
     var viewDidLoadCalled: Bool = false

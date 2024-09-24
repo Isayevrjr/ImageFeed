@@ -17,6 +17,9 @@
 		572951A22C36E4290063B5CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 572951A12C36E4290063B5CD /* Assets.xcassets */; };
 		572951A52C36E4290063B5CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 572951A32C36E4290063B5CD /* LaunchScreen.storyboard */; };
 		572F94A62CA202C90026A80E /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572F94A52CA202B90026A80E /* ProfilePresenter.swift */; };
+		572F94AC2CA296DB0026A80E /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572F94AB2CA296D70026A80E /* Profile.swift */; };
+		572F94AE2CA2979A0026A80E /* PresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572F94AD2CA297910026A80E /* PresenterSpy.swift */; };
+		572F94B02CA297A50026A80E /* ViewControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572F94AF2CA2979D0026A80E /* ViewControllerSpy.swift */; };
 		57368FC32C774CD900FE81AA /* ProfileImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57368FC22C774CD900FE81AA /* ProfileImageService.swift */; };
 		57368FC62C7B718100FE81AA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 57368FC52C7B718100FE81AA /* Kingfisher */; };
 		57385AE82C7F5C0600AAF1BC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57385AE72C7F5C0600AAF1BC /* TabBarController.swift */; };
@@ -63,6 +66,9 @@
 		572951A42C36E4290063B5CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		572951A62C36E4290063B5CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		572F94A52CA202B90026A80E /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
+		572F94AB2CA296D70026A80E /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		572F94AD2CA297910026A80E /* PresenterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterSpy.swift; sourceTree = "<group>"; };
+		572F94AF2CA2979D0026A80E /* ViewControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSpy.swift; sourceTree = "<group>"; };
 		57368FC22C774CD900FE81AA /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
 		57385AE72C7F5C0600AAF1BC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		573A34882C86F9EB000C6187 /* ImagesListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListService.swift; sourceTree = "<group>"; };
@@ -137,6 +143,26 @@
 				572951A12C36E4290063B5CD /* Assets.xcassets */,
 			);
 			path = ImageFeed;
+			sourceTree = "<group>";
+		};
+		572F94A92CA295840026A80E /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				5704FD5E2CA1A0DE008BE843 /* WebViewTests.swift */,
+				5704FD542CA053A1008BE843 /* WebViewControllerSpy.swift */,
+				5704FD622CA1A13C008BE843 /* WebViewPresenterSpy.swift */,
+			);
+			path = WebView;
+			sourceTree = "<group>";
+		};
+		572F94AA2CA295D40026A80E /* ProfileTests */ = {
+			isa = PBXGroup;
+			children = (
+				572F94AB2CA296D70026A80E /* Profile.swift */,
+				572F94AF2CA2979D0026A80E /* ViewControllerSpy.swift */,
+				572F94AD2CA297910026A80E /* PresenterSpy.swift */,
+			);
+			path = ProfileTests;
 			sourceTree = "<group>";
 		};
 		57385AE62C7F5BFA00AAF1BC /* TabBarController */ = {
@@ -239,9 +265,8 @@
 		57E0A6962C9EE31000992CDA /* ImageFeedTests */ = {
 			isa = PBXGroup;
 			children = (
-				5704FD5E2CA1A0DE008BE843 /* WebViewTests.swift */,
-				5704FD622CA1A13C008BE843 /* WebViewPresenterSpy.swift */,
-				5704FD542CA053A1008BE843 /* WebViewControllerSpy.swift */,
+				572F94A92CA295840026A80E /* WebView */,
+				572F94AA2CA295D40026A80E /* ProfileTests */,
 			);
 			path = ImageFeedTests;
 			sourceTree = "<group>";
@@ -386,9 +411,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				572F94AE2CA2979A0026A80E /* PresenterSpy.swift in Sources */,
 				5704FD552CA053A4008BE843 /* WebViewControllerSpy.swift in Sources */,
 				5704FD632CA1A13F008BE843 /* WebViewPresenterSpy.swift in Sources */,
+				572F94AC2CA296DB0026A80E /* Profile.swift in Sources */,
 				5704FD5F2CA1A0E2008BE843 /* WebViewTests.swift in Sources */,
+				572F94B02CA297A50026A80E /* ViewControllerSpy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

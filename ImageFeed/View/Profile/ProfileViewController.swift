@@ -10,6 +10,7 @@ public protocol ProfileViewControllerProtocol: AnyObject {
     func showAlert(alert: UIAlertController)
     func addSubviews()
     func addConstrains()
+    func configure(_ presenter: ProfilePresenterProtocol)
 }
 
 class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
