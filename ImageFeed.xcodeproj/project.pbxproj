@@ -20,6 +20,9 @@
 		572F94AC2CA296DB0026A80E /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572F94AB2CA296D70026A80E /* Profile.swift */; };
 		572F94AE2CA2979A0026A80E /* PresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572F94AD2CA297910026A80E /* PresenterSpy.swift */; };
 		572F94B02CA297A50026A80E /* ViewControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572F94AF2CA2979D0026A80E /* ViewControllerSpy.swift */; };
+		572F94B22CA2B0460026A80E /* ImageListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572F94B12CA2AFED0026A80E /* ImageListPresenter.swift */; };
+		572F94B52CA31C4E0026A80E /* ImagesListPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572F94B42CA31C430026A80E /* ImagesListPresenterSpy.swift */; };
+		572F94B72CA31CD70026A80E /* ImageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572F94B62CA31CD10026A80E /* ImageList.swift */; };
 		57368FC32C774CD900FE81AA /* ProfileImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57368FC22C774CD900FE81AA /* ProfileImageService.swift */; };
 		57368FC62C7B718100FE81AA /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 57368FC52C7B718100FE81AA /* Kingfisher */; };
 		57385AE82C7F5C0600AAF1BC /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57385AE72C7F5C0600AAF1BC /* TabBarController.swift */; };
@@ -69,6 +72,9 @@
 		572F94AB2CA296D70026A80E /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		572F94AD2CA297910026A80E /* PresenterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterSpy.swift; sourceTree = "<group>"; };
 		572F94AF2CA2979D0026A80E /* ViewControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSpy.swift; sourceTree = "<group>"; };
+		572F94B12CA2AFED0026A80E /* ImageListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListPresenter.swift; sourceTree = "<group>"; };
+		572F94B42CA31C430026A80E /* ImagesListPresenterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListPresenterSpy.swift; sourceTree = "<group>"; };
+		572F94B62CA31CD10026A80E /* ImageList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageList.swift; sourceTree = "<group>"; };
 		57368FC22C774CD900FE81AA /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
 		57385AE72C7F5C0600AAF1BC /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		573A34882C86F9EB000C6187 /* ImagesListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListService.swift; sourceTree = "<group>"; };
@@ -165,6 +171,15 @@
 			path = ProfileTests;
 			sourceTree = "<group>";
 		};
+		572F94B32CA31C190026A80E /* ImageListTest */ = {
+			isa = PBXGroup;
+			children = (
+				572F94B42CA31C430026A80E /* ImagesListPresenterSpy.swift */,
+				572F94B62CA31CD10026A80E /* ImageList.swift */,
+			);
+			path = ImageListTest;
+			sourceTree = "<group>";
+		};
 		57385AE62C7F5BFA00AAF1BC /* TabBarController */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				579E1FDC2C3D3F1F00AED135 /* ImagesListCell.swift */,
+				572F94B12CA2AFED0026A80E /* ImageListPresenter.swift */,
 				5729519C2C36E4280063B5CD /* ImagesListViewController.swift */,
 				573A34882C86F9EB000C6187 /* ImagesListService.swift */,
 			);
@@ -267,6 +283,7 @@
 			children = (
 				572F94A92CA295840026A80E /* WebView */,
 				572F94AA2CA295D40026A80E /* ProfileTests */,
+				572F94B32CA31C190026A80E /* ImageListTest */,
 			);
 			path = ImageFeedTests;
 			sourceTree = "<group>";
@@ -391,6 +408,7 @@
 				57E0A6902C9E23C400992CDA /* AuthHelper.swift in Sources */,
 				579E202C2C45535000AED135 /* ProfileViewController.swift in Sources */,
 				572951992C36E4280063B5CD /* AppDelegate.swift in Sources */,
+				572F94B22CA2B0460026A80E /* ImageListPresenter.swift in Sources */,
 				57368FC32C774CD900FE81AA /* ProfileImageService.swift in Sources */,
 				57A467902C5BA8A500EB651B /* AuthViewController.swift in Sources */,
 				57E0A68A2C9D4FD300992CDA /* WebViewPresenter.swift in Sources */,
@@ -412,7 +430,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				572F94AE2CA2979A0026A80E /* PresenterSpy.swift in Sources */,
+				572F94B72CA31CD70026A80E /* ImageList.swift in Sources */,
 				5704FD552CA053A4008BE843 /* WebViewControllerSpy.swift in Sources */,
+				572F94B52CA31C4E0026A80E /* ImagesListPresenterSpy.swift in Sources */,
 				5704FD632CA1A13F008BE843 /* WebViewPresenterSpy.swift in Sources */,
 				572F94AC2CA296DB0026A80E /* Profile.swift in Sources */,
 				5704FD5F2CA1A0E2008BE843 /* WebViewTests.swift in Sources */,
