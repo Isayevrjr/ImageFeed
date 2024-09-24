@@ -58,7 +58,7 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
         return label
     }()
     
-    var logoutButton: UIButton = {
+    @objc var logoutButton: UIButton = {
         let button = UIButton.systemButton(with: UIImage(named: "Logout_button")!, 
                                            target: self,
                                            action: #selector(Self.didTapLogoutButton))
@@ -90,6 +90,9 @@ class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
                 self.updateAvatar()
             }
         updateAvatar()
+        
+        logoutButton.accessibilityIdentifier = "ExitButton"
+        logoutButton.addTarget(self, action: #selector(getter: logoutButton), for: .touchUpInside)
     }
     
     func configure(_ presenter: ProfilePresenterProtocol) {

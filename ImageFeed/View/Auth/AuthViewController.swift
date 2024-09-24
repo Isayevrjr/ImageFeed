@@ -12,9 +12,12 @@ final class AuthViewController: UIViewController {
     var delegate: AuthViewControllerDelegate?
     
     
+    @IBOutlet var inButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureBackButton()
+        inButton.accessibilityIdentifier = "Authenticate"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

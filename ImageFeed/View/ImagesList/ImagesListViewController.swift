@@ -12,7 +12,6 @@ final class ImagesListViewController: UIViewController, ImageListViewControllerP
     var presenter: ImageListPresenterProtocol?
     private var photos: [Photo] = []
     private var imagesListServiceObserver: NSObjectProtocol?
-    
     private let imagesListService = ImagesListService.shared
     private let photosName: [String] = Array(0..<20).map{ "\($0)" }
     
@@ -31,7 +30,6 @@ final class ImagesListViewController: UIViewController, ImageListViewControllerP
         
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         presenter?.viewDidLoad()
-    
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

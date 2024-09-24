@@ -25,6 +25,7 @@ final class ProfilePresenter: ProfilePresenterProtocol {
         }
         let noButton = UIAlertAction(title: "Нет", style: .default)
         
+        yesButton.accessibilityIdentifier = "Да"
         alert.addAction(yesButton)
         alert.addAction(noButton)
         alert.preferredAction = noButton
