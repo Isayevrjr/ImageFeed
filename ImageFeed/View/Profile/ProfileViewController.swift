@@ -3,8 +3,19 @@ import WebKit
 import Kingfisher
 import SwiftKeychainWrapper
 
-class ProfileViewController: UIViewController {
+public protocol ProfileViewControllerProtocol: AnyObject {
+    var presenter: ProfilePresenterProtocol? { get set }
+    func updateAvatar()
+    func logout()
+    func showAlert(alert: UIAlertController)
+    func addSubviews()
+    func addConstrains()
+    func configure(_ presenter: ProfilePresenterProtocol)
+}
+
+class ProfileViewController: UIViewController, ProfileViewControllerProtocol {
     
+    var presenter: ProfilePresenterProtocol?
     private var profileService = ProfileService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
     
@@ -47,7 +58,7 @@ class ProfileViewController: UIViewController {
         return label
     }()
     
-    var logoutButton: UIButton = {
+    @objc var logoutButton: UIButton = {
         let button = UIButton.systemButton(with: UIImage(named: "Logout_button")!, 
                                            target: self,
                                            action: #selector(Self.didTapLogoutButton))
@@ -62,10 +73,10 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "YP Black")
         
-        addSubviews()
-        addConstrains()
-        
-        guard let profile = profileService.profile else {
+        presenter?.viewDidLoad()
+        //addSubviews()
+        //addConstrains()
+        guard let profile = presenter?.getProfile() else {
             print("No profile data found")
             return
         }
@@ -79,6 +90,14 @@ class ProfileViewController: UIViewController {
                 self.updateAvatar()
             }
         updateAvatar()
+        
+        logoutButton.accessibilityIdentifier = "ExitButton"
+        logoutButton.addTarget(self, action: #selector(getter: logoutButton), for: .touchUpInside)
+    }
+    
+    func configure(_ presenter: ProfilePresenterProtocol) {
+        self.presenter = presenter
+        self.presenter?.view = self
     }
     
     private func updateProfileDetails(profile: Profile) {
@@ -87,14 +106,8 @@ class ProfileViewController: UIViewController {
         descriptionLabel.text = profile.bio
     }
     
-    private func updateAvatar() {
-        guard
-            let profileImageURL = ProfileImageService.shared.avatarURL,
-            let url = URL(string: profileImageURL)
-        else {
-            print("Error -", #fileID, #function)
-            return
-        }
+    func updateAvatar() {
+        let url = presenter?.getAvatarUrl()
       
         let procesoor = RoundCornerImageProcessor(cornerRadius: 35, backgroundColor: UIColor(named: "YP Black"))
         
@@ -105,8 +118,6 @@ class ProfileViewController: UIViewController {
         )
     }
    
-  
-    
     func addSubviews() {
         view.addSubview(avatarImageView)
         view.addSubview(namelabel)
@@ -115,7 +126,7 @@ class ProfileViewController: UIViewController {
         view.addSubview(logoutButton)
     }
     
-    private func addConstrains() {
+    func addConstrains() {
         avatarImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 76).isActive = true
         avatarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         
@@ -130,15 +141,6 @@ class ProfileViewController: UIViewController {
         
         logoutButton.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor).isActive = true
         logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
-    }
-    
-    func showAlert() {
-        let alert = UIAlertController(title: "Вы вышли из профиля", message: .none, preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: "ОК", style: .default)
-        
-        alert.addAction(action)
-        present(alert, animated: true)
     }
     
     func logout() {
@@ -164,22 +166,13 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    private func showAlertLogout() {
-        let alert = UIAlertController(title: "Пока, Пока!",
-                                      message: "Уверены что хотите выйти?",
-                                      preferredStyle: .alert)
-        let yesButton = UIAlertAction(title: "Да", style: .default) { [weak self] _ in
-            self?.logout()
-        }
-        let noButton = UIAlertAction(title: "Нет", style: .default, handler: nil)
-        alert.addAction(yesButton)
-        alert.addAction(noButton)
+    func showAlert(alert: UIAlertController) {
         present(alert, animated: true)
     }
     
     @objc
     private func didTapLogoutButton() {
-        showAlertLogout()
+        presenter?.logout()
     }
 }
  

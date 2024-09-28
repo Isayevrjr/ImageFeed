@@ -2,7 +2,7 @@ import UIKit
 
 // MARK: - Photo Models
 
-struct Photo {
+public struct Photo {
     let id: String
     let size: CGSize
     let createdAt: Date?

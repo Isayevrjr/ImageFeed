@@ -12,9 +12,12 @@ final class AuthViewController: UIViewController {
     var delegate: AuthViewControllerDelegate?
     
     
+    @IBOutlet var inButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureBackButton()
+        inButton.accessibilityIdentifier = "Authenticate"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -22,6 +25,11 @@ final class AuthViewController: UIViewController {
             guard
                 let webViewViewController = segue.destination as? WebViewViewController
             else { fatalError("Failed to prepare for \(showWebViewSegueIdentifier)") }
+           
+            let authHelper = AuthHelper()
+            let webViewPresenter = WebViewPresenter(authHelper: authHelper)
+            webViewViewController.presenter = webViewPresenter
+            webViewPresenter.view = webViewViewController
             webViewViewController.deleagte = self
         } else {
             super.prepare(for: segue, sender: sender)
@@ -44,9 +52,9 @@ extension AuthViewController: WebViewViewControllerDelegate {
    func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
         dismiss(animated: true)
         UIBlockingProgressHUD.show()
-        oauth2Service.fetchAuthToken(code) { [self] result in
+        oauth2Service.fetchAuthToken(code) { [weak self] result in
            UIBlockingProgressHUD.dismiss()
-        
+            guard let self = self else { return }
             switch result {
             case .success(let accessToken):
                 let tokenStorage = OAuth2TokenStorage()
